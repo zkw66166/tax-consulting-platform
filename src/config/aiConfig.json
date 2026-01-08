@@ -1,0 +1,11 @@
+{
+    "models": [
+        {
+            "title": "SiliconFlow-DeepSeek-R1",
+            "provider": "openai",
+            "model": "deepseek-ai/DeepSeek-V3.2",
+            "apiBase": "https://api.siliconflow.cn/v1",
+            "apiKey": "sk-wdtdzqlwbaevfvhzfnraovrsdpjoxyygvxmitxkjlbfekocs"
+        }
+    ]
+}

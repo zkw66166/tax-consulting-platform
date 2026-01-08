@@ -1,0 +1,11 @@
+{
+    "models": [
+        {
+            "title": "SiliconFlow-DeepSeek-R1",
+            "provider": "openai",
+            "model": "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B",
+            "apiBase": "https://api.siliconflow.cn/v1",
+            "apiKey": "sk-wdtdzqlwbaevfvhzfnraovrsdpjoxyygvxmitxkjlbfekocs"
+        }
+    ]
+}

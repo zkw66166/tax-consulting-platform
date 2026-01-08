@@ -1,0 +1,2 @@
+
+C:\MyProjects\tax-consulting-platform\src\report>tree /F /A  1>tree.txt 

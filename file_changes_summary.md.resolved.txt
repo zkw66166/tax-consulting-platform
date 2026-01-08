@@ -1,0 +1,175 @@
+﻿# 项目文件修改总结
+
+## 时间范围
+2025-12-29 完整对话记录
+
+## 一、新增文件
+
+### 1. 配置文件
+| 文件路径 | 用途 | 说明 |
+|---------|------|------|
+| [D:\MyProjects\tax-consulting-platform\.eslintrc.json](file:///D:/MyProjects/tax-consulting-platform/.eslintrc.json) | ESLint配置 | 关闭unicode-bom警告，降低部分警告级别 |
+
+### 2. 工具脚本
+| 文件路径 | 用途 | 说明 |
+|---------|------|------|
+| [D:\MyProjects\tax-consulting-platform\remove-bom.ps1](file:///D:/MyProjects/tax-consulting-platform/remove-bom.ps1) | BOM清理脚本 | PowerShell脚本，用于移除Unicode BOM |
+| [D:\MyProjects\tax-consulting-platform\cleanup-imports.ps1](file:///D:/MyProjects/tax-consulting-platform/cleanup-imports.ps1) | 导入清理脚本 | PowerShell脚本，用于批量移除未使用的导入 |
+
+### 3. 文档文件
+| 文件路径 | 用途 | 说明 |
+|---------|------|------|
+| [D:\MyProjects\tax-consulting-platform\OPTIMIZATION_SUMMARY.md](file:///D:/MyProjects/tax-consulting-platform/OPTIMIZATION_SUMMARY.md) | 优化总结文档 | 记录所有优化措施和剩余问题 |
+
+## 二、修改文件
+
+### 1. 组件文件
+
+#### [src\components\common\Footer.jsx](file:///D:/MyProjects/tax-consulting-platform/src/components/common/Footer.jsx)
+**修改内容：**
+- 替换4个无效的`<a href="#">`为`<button>`元素
+- 修复jsx-a11y/anchor-is-valid警告
+
+**修改行数：** 10-15行
+
+---
+
+#### [src\pages\Login.jsx](file:///D:/MyProjects/tax-consulting-platform/src/pages/Login.jsx)
+**修改内容：**
+- 替换1个无效的"忘记密码"链接为`<button>`
+- 修复jsx-a11y/anchor-is-valid警告
+
+**修改行数：** 174-175行
+
+---
+
+#### [src\pages\AIAnswer.jsx](file:///D:/MyProjects/tax-consulting-platform/src/pages/AIAnswer.jsx)
+**修改内容：**
+
+**第一次修改 - AI回答提示：**
+- 修改[handleConsultSubmit](file:///D:/MyProjects/tax-consulting-platform/src/pages/AIAnswer.jsx#107-136)函数
+- 将AI回答改为"未接入API，暂时无法回答"
+- 状态改为'error'，confidence改为0
+- 响应时间从2秒改为1秒
+
+**第二次修改 - 添加错误状态显示：**
+- 添加error状态的UI展示
+- 显示红色"服务异常"标签
+
+**第三次修改 - 布局优化：**
+- 导入`ChevronDown`和`ChevronUp`图标
+- 添加`showAllHistory`状态
+- 将"咨询历史"移到"AI智能问答"下方
+- 重命名为"最新回答"
+- 添加展开/收起功能
+- 默认只显示最新一条记录
+- 删除原位置的重复"咨询历史"部分
+
+**影响行数：** 
+- 1-7行（导入）
+- 106-134行（handleConsultSubmit函数）
+- 188-283行（新的咨询历史位置）
+- 266-279行（状态显示）
+- 删除了338-413行（旧咨询历史部分）
+
+---
+
+#### [src\pages\CompanySelection.jsx](file:///D:/MyProjects/tax-consulting-platform/src/pages/CompanySelection.jsx)
+**修改内容：**
+
+**第一次修改 - 默认勾选和Tooltip：**
+- 导入`useEffect`
+- 添加`useEffect`默认选中第一家企业
+- 为两个操作按钮添加`title`属性tooltip
+
+**第二次修改 - 修复切换菜单问题：**
+- 修改`useEffect`依赖数组，从`[]`改为`[moduleType]`
+- 移除`selectedCompanies.length === 0`检查
+- 确保每次切换菜单都重新选中第一家企业
+
+**影响行数：**
+- 1行（导入useEffect）
+- 71-79行（useEffect逻辑）
+- 330-347行（按钮tooltip）
+
+---
+
+#### [src\App.js](file:///D:/MyProjects/tax-consulting-platform/src/App.js)
+**修改内容：**
+- 删除未使用的`handleUserTypeChange`函数
+- 修复no-unused-vars警告
+
+**修改行数：** 85-102行（删除）
+
+## 三、删除文件
+
+**无删除文件**
+
+## 四、修改統計
+
+### 按功能分类
+
+| 功能类别 | 修改文件数 | 新增文件数 |
+|---------|----------|----------|
+| ESLint优化 | 1 (.eslintrc.json) | 1 |
+| 可访问性修复 | 2 (Footer.jsx, Login.jsx) | 0 |
+| 代码清理 | 1 (App.js) | 2 (脚本) |
+| AI问答功能 | 1 (AIAnswer.jsx) | 0 |
+| 企业选择优化 | 1 (CompanySelection.jsx) | 0 |
+| 文档 | 0 | 1 (OPTIMIZATION_SUMMARY.md) |
+
+### 总计
+
+- **新增文件：** 4个（1个配置 + 2个脚本 + 1个文档）
+- **修改文件：** 5个
+- **删除文件：** 0个
+- **总影响文件：** 9个
+
+## 五、主要改进功能
+
+### 1. 项目优化（之前会话）
+- ✅ 减少ESLint警告从252+降至约150
+- ✅ 修复可访问性问题
+- ✅ 清理未使用代码
+
+### 2. AI智能问答（本次会话）
+- ✅ 添加API未接入提示
+- ✅ 优化页面布局
+- ✅ 添加展开/收起历史功能
+- ✅ 改善用户体验
+
+### 3. 企业选择界面（本次会话）
+- ✅ 默认勾选第一家企业
+- ✅ 添加按钮禁用提示
+- ✅ 修复菜单切换问题
+- ✅ 应用到8个模块页面
+
+## 六、文件清单（完整路径）
+
+### 新增文件
+```
+D:\MyProjects\tax-consulting-platform\.eslintrc.json
+D:\MyProjects\tax-consulting-platform\remove-bom.ps1
+D:\MyProjects\tax-consulting-platform\cleanup-imports.ps1
+D:\MyProjects\tax-consulting-platform\OPTIMIZATION_SUMMARY.md
+```
+
+### 修改文件
+```
+D:\MyProjects\tax-consulting-platform\src\App.js
+D:\MyProjects\tax-consulting-platform\src\components\common\Footer.jsx
+D:\MyProjects\tax-consulting-platform\src\pages\Login.jsx
+D:\MyProjects\tax-consulting-platform\src\pages\AIAnswer.jsx
+D:\MyProjects\tax-consulting-platform\src\pages\CompanySelection.jsx
+```
+
+### 删除文件
+```
+（无）
+```
+
+---
+
+**生成时间：** 2025-12-29  
+**总修改文件数：** 9个（4个新增 + 5个修改）
+
