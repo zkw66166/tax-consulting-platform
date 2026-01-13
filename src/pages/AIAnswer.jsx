@@ -122,8 +122,13 @@ const AIAnswer = () => {
         setConsultQuestion('');
 
         try {
-            // 调用AI API获取回答
-            const result = await getAIAnswer(consultQuestion);
+            // 调用AI API获取回答 (支持流式输出)
+            const result = await getAIAnswer(consultQuestion, (partialText) => {
+                // 实时更新回答内容
+                setConsultHistory(prev => prev.map(item =>
+                    item.id === newConsult.id ? { ...item, answer: partialText } : item
+                ));
+            });
 
             const updatedConsult = {
                 ...newConsult,
